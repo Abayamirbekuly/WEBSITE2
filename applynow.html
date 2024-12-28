@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .application-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .application-form h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .application-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .application-form input, .application-form textarea, .application-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .application-form textarea {
+            height: 100px;
+        }
+
+        .application-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .application-form button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            margin-top: 15px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+        }
+    </style>
+</head>
+<body>
+
+<div class="application-form">
+    <h1>Apply for a Task</h1>
+    <form id="taskForm">
+        <label for="amount">Your Offer (Amount in $):</label>
+        <input type="number" id="amount" placeholder="Enter your amount">
+
+        <label>
+            <input type="checkbox" id="agreeToClientAmount">
+            Agree with Client's Suggested Amount
+        </label>
+
+        <label for="message">Message to the Client:</label>
+        <textarea id="message" placeholder="Write a short message to the client..."></textarea>
+
+        <button type="submit">Submit Application</button>
+    </form>
+
+    <div class="message" id="successMessage">
+        Your application has been sent! You will receive a response within 1-2 days.
+        <a href="main2.html" style="text-decoration: none;">
+            <button class="back-btn">Back to Main Page</button>
+        </a>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('taskForm');
+    const successMessage = document.getElementById('successMessage');
+    const amountInput = document.getElementById('amount');
+    const agreeToClientAmount = document.getElementById('agreeToClientAmount');
+
+    agreeToClientAmount.addEventListener('change', () => {
+        if (agreeToClientAmount.checked) {
+            amountInput.value = '';
+            amountInput.disabled = true;
+        } else {
+            amountInput.disabled = false;
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const message = document.getElementById('message').value.trim();
+        const amount = agreeToClientAmount.checked ? 'Agreed to client amount' : amountInput.value.trim();
+
+        if (!message || (!amount && !agreeToClientAmount.checked)) {
+            alert('Please complete all fields or agree to the client amount.');
+            return;
+        }
+
+        // Simulating form submission
+        successMessage.style.display = 'block';
+        form.reset();
+        amountInput.disabled = false;
+    });
+</script>
+
+</body>
+</html>
